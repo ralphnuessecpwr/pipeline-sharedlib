@@ -33,7 +33,7 @@ def call(Map pipelineParams)
                     echo 'Deploy some things'
                     step([$class: 'CordellWalkerRecorder'])
 
-                    def mailRecipients = "ralph.nuesse@compuware.com"
+//                    def mailRecipients = "ralph.nuesse@compuware.com"
                     
                     // Email
                     emailext subject: '$DEFAULT_SUBJECT',
@@ -41,7 +41,7 @@ def call(Map pipelineParams)
                                 //body: '$DEFAULT_CONTENT',
                                 replyTo: '$DEFAULT_REPLYTO',
                                 //attachmentsPattern: 'reports/*.zip',
-                                to: "${mailRecipients}"
+                                to: "ralph.nuesse@compuware.com"
 
                 }
             }
