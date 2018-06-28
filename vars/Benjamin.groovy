@@ -1,13 +1,11 @@
-def call(map pipelineParams) {
+def call(Map pipelineParams) {
 pipeline {
   agent { label 'AgentOrange'}
-  parameters {
-        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-    }
+  
   stages {
     stage('Build') {
       steps {
-        echo "Hello from $PERSON"
+        echo "Hello from $pipelineParams.nom"
         sleep 10
         input message: 'On y va ?', ok: 'Oui'
      
