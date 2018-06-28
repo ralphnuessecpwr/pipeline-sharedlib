@@ -1,1 +1,1 @@
-# pipeline-sharedlib
+# pipeline-sharedlibInfo from Andreas
