@@ -8,6 +8,7 @@ def call(Map pipelineParams) {
                 steps {
                     echo "Hello from Build $pipelineParams.key1"
                     echo 'Hello from Build $pipelineParams.key1'
+                    git "$pipelineParams.gitURL"
                 }
             }
             stage('Test') {
