@@ -9,14 +9,14 @@ def call(Map pipelineParams)
             {
                 steps 
                 {
-                    echo 'Hello, ${pipelineParams.firstname}, from Build'
+                    echo "Hello, ${pipelineParams.firstname}, from Build"
                 }
             }
             stage('Test') 
             {
                 steps 
                 {
-                    echo 'Testing Testing 123, Mr. ${pipelineParams.lastname}'
+                    echo "Testing Testing 123, Mr. ${pipelineParams.lastname}"
                 }
             }
             stage('Integration Test') 
