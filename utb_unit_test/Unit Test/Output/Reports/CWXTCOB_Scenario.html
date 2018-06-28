@@ -1,0 +1,8389 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CWXTCOB_Scenario</title>
+		<style type="text/css">
+		  body {
+		    font:normal 68% Verdana,Arial,sans-serif;
+		    color:black;
+		  }
+		  table tr td, table tr th {
+		      font-size: 68%;
+		  }
+		  table.details tr th{
+		    font-weight: bold;
+		    font-size: 62%;
+		    text-align:left;
+		    background:#a6caf0;
+		    color: #333;
+		  }
+		  table.details tr td{
+		    background:#eeeee0;
+		  }
+		
+			h1, h2, h3, h4, h5, h6 {
+					font-weight: bold;
+					color: #333333;
+					margin-left: 4px;
+					margin-bottom: 0.5em;
+					margin-top: 2em;
+  					font-family: "HelveticaNew-Regular", "Helvetica New Regular",
+  					 "HelveticaNeue-Regular", "Helvetica Neue Regular",
+  					 Helvetica, Arial, sans-serif;			
+  			}
+			
+			h1 { font-size: 200%; font-weight: normal; margin-top: 0; line-height: 110%; color: #333; }
+			h2 { font-size:180%; margin-top:1em; }                       /* 18px */
+			h3 { font-size:160%; margin-bottom: 0; }                       
+			h4 { font-size:130.00%; margin-top: 3em; }                    
+			h5 { font-size:116.67%; margin-top: 1em; }                    
+			h6 { font-size:100.00%; }                    
+
+
+		  p {
+		    line-height:1.5em;
+		    margin-top:0.5em; margin-bottom:1.0em; margin-left: 6px;
+		    width: 94%;
+		  }
+
+		  a {
+		  		font-weight: normal;
+				color:darkblue;
+		  		text-decoration: none;
+		  }
+		
+		  a:focus,
+		  a:hover,
+		  a:active  {
+		  		background:inherit;
+        		color:blue;
+		  		text-decoration:underline;
+		  		outline: 0 none;
+		}
+
+         a.top {
+         		font-size: x-small;
+         		font-variant: small-caps;
+         		padding-top: 1em;
+         		display: none;
+         }
+          .summary {
+          	font-weight: bold; color: #333;	
+          }
+		  .Error {
+		    font-weight:bold; color:red;
+		  }
+		  .Failure {
+		    font-weight:normal; color:red;
+		  }
+		  .Properties {
+		    text-align:right;
+		  }
+		  .success100 {
+		  	color: darkgreen;
+		  }
+		  .note {
+		    color: #666; 
+		    font-style: italic;
+		  }
+		.pg-normal {
+			color: #000000;
+			font-size: 15px;
+			cursor: pointer;
+			background: #a6caf0;
+			padding: 2px 4px 2px 4px;
+		}
+		
+		.pg-selected {
+			color: #fff;
+			font-size: 15px;
+			background: #000000;
+			padding: 2px 4px 2px 4px;
+		}
+		
+		table.stubpage {
+			text-align: left;
+			color: #333;
+			border-spacing: 2px;
+		}
+		
+		table.stubpage th {
+			padding: 5px;
+			height: auto;
+		}
+		
+		table.stubpage th a {
+			text-decoration: none;
+			padding-right: 20px;
+			white-space: nowrap;
+		}
+		
+		table.stubpage tr th {
+		    font-weight: bold;
+			font-size: 62%;
+			text-align: left;
+			background: #a6caf0;
+			color: #333;
+		}
+		
+		table.stubpage tr td {
+			background: #eeeee0;
+		}
+		</style>
+		<script type="text/javascript">
+
+        var shownDivId;
+    	function toggleTable(idname) {
+    		var div = document.getElementById(idname);
+    		
+    		if (shownDivId != null && shownDivId != idname) {
+    			var divShown = document.getElementById(shownDivId);
+    			divShown.style.display = 'none';
+    		}
+    		
+    	    if (div.style.display != 'none') {
+      	        div.style.display = 'none';
+    	    }  else {
+    	        div.style.display = 'block';
+    	        shownDivId = idname;
+    	        smoothScroll(div);
+    	    }
+		}
+		
+		window.smoothScroll = function(target) {
+		    var scrollContainer = target;
+		    do { //find scroll container
+		        scrollContainer = scrollContainer.parentNode;
+		        if (!scrollContainer) return;
+		        scrollContainer.scrollTop += 1;
+		    } while (scrollContainer.scrollTop == 0);
+		
+		    var targetY = 0;
+		    do { //find the top of target relatively to the container
+		        if (target == scrollContainer) break;
+		        targetY += target.offsetTop;
+		    } while (target = target.offsetParent);
+		
+		    scroll = function(c, a, b, i) {
+		        i++; if (i > 30) return;
+		        c.scrollTop = a + (b - a) / 30 * i;
+		        setTimeout(function(){ scroll(c, a, b, i); }, 20);
+		    }
+   		 // start scrolling
+    	scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+}
+      </script>
+	  <script type="text/javascript">
+		
+		function Pager(tableName, itemsPerPage, name) {
+		
+		this.tableName = tableName;
+		
+		this.itemsPerPage = itemsPerPage;
+		
+		this.pagerName = name;
+		
+		this.currentPage = 1;
+		
+		this.pages = 0;
+		
+		this.inited = false;
+		
+		this.showRecords = function(from, to) {
+		
+		var rows = document.getElementById(tableName).rows;
+		
+		// i starts from 1 to skip table header row
+		
+		for (var i = 1; i < rows.length; i++) {
+		
+		if (i < from || i > to)
+		
+		rows[i].style.display = 'none';
+		
+		else
+		
+		rows[i].style.display = '';
+		
+		}
+		
+		}
+		
+		this.showPage = function(pageNumber) {
+		
+			if (shownDivId != null) {
+				var divShown = document.getElementById(shownDivId);
+				divShown.style.display = 'none';
+			}
+			
+			
+			if (! this.inited) {
+			
+			//alert("not inited");
+			
+			return;
+			
+			}
+			
+			var oldPageAnchor = document.getElementById('pg'+ this.pagerName + this.currentPage);
+			
+			if ( oldPageAnchor != null ) {
+				oldPageAnchor.className = 'pg-normal';
+			}
+			
+			this.currentPage = pageNumber;
+			
+			var newPageAnchor = document.getElementById('pg' + this.pagerName + this.currentPage);
+			
+			if (newPageAnchor != null) {
+				newPageAnchor.className = 'pg-selected';
+			}
+			
+			var from = (pageNumber - 1) * itemsPerPage + 1;
+			
+			var to = from + itemsPerPage - 1;
+			
+			this.showRecords(from, to);
+			
+		}
+			
+		this.prev = function() {
+			
+			if (this.currentPage > 1)
+			
+			this.showPage(this.currentPage - 1);
+		
+		}
+		
+		this.next = function() {
+		
+		if (this.currentPage < this.pages) {
+		
+		this.showPage(this.currentPage + 1);
+		
+		}
+		
+		}
+		
+		this.init = function() {
+		
+		var rows = document.getElementById(tableName).rows;
+		
+		var records = (rows.length - 1);
+		
+		this.pages = Math.ceil(records / itemsPerPage);
+		
+		this.inited = true;
+		
+		}
+		
+		this.showPageNav = function(pagerName, positionId) {
+		
+		if (! this.inited) {
+		
+		////alert("not inited");
+		
+		return;
+		
+		}
+		
+		var element = document.getElementById(positionId);
+		
+		var pagerHtml = '<span id="pg' + this.pagerName + 'prev" onclick="' + pagerName + '.prev();" class="pg-normal"> Prev </span> &nbsp;';
+		
+		for (var page = 1; page <= this.pages; page++)
+		
+		pagerHtml += '<span id="pg' + this.pagerName + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> ';
+		
+		pagerHtml += '<span id="pg' + this.pagerName + 'next" onclick="'+pagerName+'.next();" class="pg-normal"> Next </span>';
+		
+		element.innerHTML = pagerHtml;
+		//alert(pagerHtml);
+		}
+		
+		}
+		
+		</script>
+		<script type="text/javascript" language="JavaScript">
+        var TestCases = new Array();
+        var cur;
+  <xsl:template match="properties">
+    cur = TestCases['CWXTCOB_Scenario.CWXTCOBCase1'] = new Array();
+       	</script>
+       	<script type="text/javascript" language="JavaScript"><![CDATA[
+			function displayProperties (name) {
+			  var win = window.open('','JUnitSystemProperties','scrollbars=1,resizable=1');
+			  var doc = win.document;
+			  doc.open();
+			  doc.write("<html><head><title>Properties of " + name + "</title>");
+			  doc.write("<style>");
+			  doc.write("body {font:normal 68% verdana,arial,helvetica; color:#000000; }");
+			  doc.write("table tr td, table tr th { font-size: 68%; }");
+			  doc.write("table.properties { border-collapse:collapse; border-left:solid 1 #cccccc; border-top:solid 1 #cccccc; padding:5px; }");
+			  doc.write("table.properties th { text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#eeeeee; }");
+			  doc.write("table.properties td { font:normal; text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#fffffff; }");
+			  doc.write("h3 { margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica }");
+			  doc.write("</style>");
+			  doc.write("</head><body>");
+			  doc.write("<h3>Properties of " + name + "</h3>");
+			  doc.write("<div align=\"right\"><a href=\"javascript:window.close();\">Close</a></div>");
+			  doc.write("<table class='properties'>");
+			  doc.write("<tr><th>Name</th><th>Value</th></tr>");
+			  for (prop in TestCases[name]) {
+			    doc.write("<tr><th>" + prop + "</th><td>" + TestCases[name][prop] + "</td></tr>");
+			  }
+			  doc.write("</table>");
+			  doc.write("</body></html>");
+			  doc.close();
+			  win.focus();
+			}
+      	]]>
+      	</script>
+	</head>
+	<body style="overflow:auto;">
+		<a name="top"></a>
+		
+    	<table width="100%">
+		    <tr valign="top">
+		        <td align="left">
+		        <h1> CWXTCOB_Scenario Result Report</h1>
+		        <p class="note">
+		        Failures are anticipated and checked for in check conditions <br />Errors are unanticipated problems
+		        </p>
+		        </td>
+		        <td align="right"></td>
+		    </tr>
+    	</table>
+    	<hr size="1"/>
+		<!-- Summary part -->			
+		<h2>Test Project utb_unit_test </h2>
+        <h2>Test Suite Summary</h2>
+        <p>
+	    <b></b>
+        <br />
+        </p>
+        <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+        <tr valign="top">
+            <th width="20%" nowrap="nowrap">Name</th>
+            <th>Tests</th>
+            <th>Failures</th>
+            <th>Errors</th>
+            <th>Success rate</th>
+            <th>Time stamp</th>
+            <th>Job ID</th>
+            <th>System</th>
+        </tr>
+        <tr valign="top">
+            <td nowrap="nowrap"><a href="#{testscenario:Unit%20Test/Scenarios/CWXTCOB_Scenario.testscenario}">CWXTCOB_Scenario</a></td>
+            <td class="summary">334</td>
+            <td class="summary">0</td>
+            <td class="summary">0</td> 		
+			<td class="summary"><span class="success100">100%</span></td>        		  
+            <td>2018-03-01 15:22:00</td>
+		    <td>HUKLEB0X(J0534335)</td> 
+		    <td>CWCC LPAR</td>  
+        </tr>
+        </table>
+        <!-- Test scenarios -->
+        <h3>Test Scenarios</h3>
+        <p class="note">
+        Note: scenario statistics are not computed recursively, they only sum up all of its test case numbers.
+        </p>
+        <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+        	<tr valign="top">
+		        <th width="80%">Name</th>
+		        <th>Tests</th>
+		        <th>Failures</th>
+		        <th>Errors</th>
+		        <th>Success&nbsp;rate</th>
+		   <!--     
+		        <th nowrap="nowrap">Time(s)</th>
+		        <th nowrap="nowrap">Time Stamp</th>
+		        <th>Host</th>
+		   -->     
+		    </tr>
+            <!-- list all packages recursively -->
+                <!-- write a summary for the package -->
+				<tr valign="top"> 
+                    <td><a href="#{testscenario:Unit%20Test/Scenarios/CWXTCOB_Scenario.testscenario}">CWXTCOB_Scenario</a></td>
+                    <td>334</td>
+                    <td>0</td>
+                    <td>0</td> 		
+                    <td><span class="success100">100%</span></td>
+                </tr>
+        </table>
+        <a name="#{testscenario:CWXTCOB_Scenario}"></a>
+        <h4>CWXTCOB_Scenario Test Scenario</h4>
+	    <p>
+	    <b></b>
+	    <br />
+	    </p>
+        <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+            <tr valign="top">
+		        <th width="80%">Test Case</th>
+		        <th>Tests</th>
+		        <th>Failures</th>
+		        <th>Errors</th>
+		        <th>Success&nbsp;rate</th>
+		    </tr>
+
+            <!-- match the testsuites of this package -->
+            <!-- class information -->       
+                <!-- write a summary for the package -->
+				<tr valign="top"> 
+		
+		        <!-- print testcase information -->
+		        <td><a href="#{testscenario:Unit%20Test/Scenarios/CWXTCOB_Scenario.testscenario}{testcase:Unit%20Test/Scenarios/CWXTCOB_Scenario.testscenario%23CWXTCOBCase1}">CWXTCOBCase1</a></td>
+		        <td>334</td>
+                <td>0</td>
+                <td>0</td> 		
+                <td><span class="success100">100%</span></td>
+		    </tr>
+        </table>
+        <a href="#top" class="top">^ Back to top</a></div>
+  
+    <h5 style="margin-left: 20px;">CWXTCOBCase1 Test Case Details</h5>
+	
+			<h6 style="margin-left: 20px;">Output Assertion</h6>
+			<table class="details" border="0" cellpadding="5" cellspacing="2" width="90%" style="margin-left: 20px;">
+			<tr valign="top">
+			    <th>Check Condition</th>
+			    <th>Status</th>
+			    <th width="30%">Message</th>
+			    <th width="18%">Expected</th>
+			    <th width="18%">Actual</th>
+			</tr>
+			
+<tr valign="top"> 
+					    <td>Check for PARM_LTH</td>
+						<td>Success</td>
+						<td>
+					
+					
+					
+					         
+					         
+					</td>
+					<td>
+					
+					
+					
+					</td>
+					
+					<td>
+					
+					
+					
+					</td>
+				</tr>
+			
+<tr valign="top"> 
+					    <td>Check for PARM_DATA</td>
+						<td>Success</td>
+						<td>
+					
+					
+					
+					         
+					         
+					</td>
+					<td>
+					
+					
+					
+					</td>
+					
+					<td>
+					
+					
+					
+					</td>
+				</tr>
+			
+			</table>
+	 <!-- end of Output Assertion -->  <!-- 3 -->
+
+<h6 style="margin-left: 20px;">Stubs</h6>
+	<table class="details" cellpadding="5" cellspacing="2" width="90%"
+		style="margin-left: 20px;" id="s1_c1_r">
+		<tr valign="top">
+			<th width="85%">Stub</th>		
+			<th>Target  </th>
+			
+			<th>Records</th>
+		</tr>
+	
+			 	<tr valign="top">   
+
+					<!-- printstub information -->
+					<td><a href="#{stub:Unit%20Test/Stubs/CWXTCOB_CWXTSUBC_01.stub}">CWXTCOB_CWXTSUBC_01</a></td>
+					<td>CWXTSUBC</td>
+					
+					
+					<td>7</td>
+				
+		
+			    
+		    </tr>
+			 	<tr valign="top">   
+
+					<!-- printstub information -->
+					<td><a href="#{stub:Unit%20Test/Stubs/CWXTCOB_CWXTDATE_01.stub}">CWXTCOB_CWXTDATE_01</a></td>
+					<td>CWXTDATE</td>
+					
+					
+					<td>14</td>
+				
+		
+			    
+		    </tr>
+			 	<tr valign="top">   
+
+					<!-- printstub information -->
+					<td><a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}">CWXTCOB_RPTFILE_WRITE_01</a></td>
+					<td>RPTFILE</td>
+					
+					
+					<td>24</td>
+				
+		
+			    
+		    </tr>
+			 	<tr valign="top">   
+
+					<!-- printstub information -->
+					<td><a href="#{stub:Unit%20Test/Stubs/CWXTCOB_EMPFILE_READ_01.stub}">CWXTCOB_EMPFILE_READ_01</a></td>
+					<td>EMPFILE</td>
+					
+					
+					<td>19</td>
+				
+		
+			    
+		    </tr>  	 
+	</table>	
+	
+	 <!-- 3 -->		
+<h6 style="margin-left: 20px;">Stub Assertion</h6>
+	<table class="details" cellpadding="5" cellspacing="2" width="90%"
+		style="margin-left: 20px;" id="s1_c1_r">
+		<tr valign="top">
+			<th width="85%">Stub Assertion</th>
+			<th>Tests</th>
+			<th>Failures</th>
+			<th>Errors</th>
+			<th>Success&nbsp;rate</th>
+		</tr>
+			   
+<tr valign="top"> 
+
+					<!-- printstub information -->
+					<td><a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}">CWXTCOB_RPTFILE_WRITE_01</a></td>
+					<td>332</td>
+					<td>0</td>
+					<td>0</td>
+		 		
+			      <td><span class="success100">100%</span></td>
+		    </tr>  	 
+	</table>
+
+     <h6 style="margin-left: 20px;">CWXTCOB_RPTFILE_WRITE_01 Stub</h6>   
+     <table id="S0T0ST0" class="stubpage"  style="margin-left: 20px; width: 90%">
+		<thead>
+			<tr>
+				<th width="85%">Stub Record Assertion</th>
+				<th>Tests</th>
+				<th>Failures</th>
+				<th>Errors</th>
+				<th>Success&nbsp;rate</th>
+			</tr>
+		</thead>
+		<tbody>
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D0');">No. 1 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>1</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D1');">No. 2 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>1</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D2');">No. 3 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>1</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D3');">No. 4 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>12</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D4');">No. 5 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>1</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D5');">No. 6 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>1</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D6');">No. 7 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>5</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D7');">No. 8 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>18</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D8');">No. 9 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>1</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D9');">No. 10 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D10');">No. 11 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D11');">No. 12 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D12');">No. 13 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D13');">No. 14 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D14');">No. 15 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D15');">No. 16 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D16');">No. 17 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D17');">No. 18 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D18');">No. 19 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D19');">No. 20 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D20');">No. 21 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D21');">No. 22 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>22</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D22');">No. 23 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>1</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      
+<tr valign="top">             
+				<td><a href="#" onclick="toggleTable('S0T0ST0D23');">No. 24 &nbsp; &nbsp;  RPTFILE record assertion result</a></td>
+			
+				
+				<td>4</td>
+				<td>0</td>
+				<td>0</td>
+				 		
+				<td><span class="success100">100%</span></td>
+	   		</tr>	   
+        
+      </tbody>
+	 </table> 
+	 
+			
+			<div id="pageNavPositionS0T0ST0" style="padding-top: 20px" align="center">
+			<script type="text/javascript">
+				var pagerS0T0ST0 = new Pager('S0T0ST0',5, 'S0T0ST0');
+				pagerS0T0ST0.init();
+				pagerS0T0ST0.showPageNav('pagerS0T0ST0', 'pageNavPositionS0T0ST0');
+				pagerS0T0ST0.showPage(1);
+			</script>
+			</div>	
+		
+
+
+
+             
+            <div id="S0T0ST0D0" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 1 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:0}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D0R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for BLANK_LINE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D1" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 2 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:1}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D1R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for BLANK_LINE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D2" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 3 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:2}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D2R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for BLANK_LINE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D3" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 4 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:3}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D3R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_RUN_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_RUN_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_RUN_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_PAGE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D4" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 5 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:4}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D4R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for BLANK_LINE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D5" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 6 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:5}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D5R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for BLANK_LINE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D6" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 7 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:6}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D6R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D7" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 8 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:7}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D7R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER9</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER10</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER11</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER12</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER13</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER14</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER15</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER16</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER17</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D8" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 9 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:8}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D8R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for BLANK_LINE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D9" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 10 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:9}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D9R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D10" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 11 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:10}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D10R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D11" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 12 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:11}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D11R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D12" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 13 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:12}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D12R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D13" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 14 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:13}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D13R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D14" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 15 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:14}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D14R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D15" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 16 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:15}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D15R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D16" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 17 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:16}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D16R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D17" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 18 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:17}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D17R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D18" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 19 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:18}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D18R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D19" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 20 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:19}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D19R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D20" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 21 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:20}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D20R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D21" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 22 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:21}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D21R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_NAME</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_REGION</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TYPE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER3</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_MM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_DD</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_SLASH2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_HIRE_YY</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER4</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_YRS_OF_SERVICE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER5</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_WAGES</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER6</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_OT</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER7</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_COMM</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER8</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_DTL_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D22" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 23 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:22}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D22R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for BLANK_LINE</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				  
+             
+            <div id="S0T0ST0D23" style="display: none;">
+			<h6 style="margin-left: 20px;">No. 24 &nbsp; &nbsp; <a href="#{stub:Unit%20Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub}{stubdata:23}">RPTFILE</a> record assertion result</h6>
+			
+					
+			
+	       
+		    <table id="S0T0ST0D23R" class="details" style="margin-left: 20px; width: 90%">
+				<tr valign="top">
+					<th>Check Condition</th>
+					<th>Status</th>
+					<th width="30%">Message</th>
+					<th width="18%">Expected</th>
+					<th width="18%">Actual</th>
+				</tr>    
+				
+<tr valign="top">
+					    <td>Check for FILLER0</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER1</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for FILLER2</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+<tr valign="top">
+					    <td>Check for EMP_GRAND_TOTAL</td>
+						<td>Success</td>
+						<td>
+							
+												
+							         
+							         
+					 	</td>
+						<td>
+							
+							
+							
+						</td>					
+						<td>
+							
+							
+							
+						</td>
+					</tr>
+			  
+					</table>  
+					
+				 
+				</div>     
+				    <!-- end of stubData table -->      <!-- end of assertion -->         <!-- end of stub -->  <!-- end of if -->
+
+<p/>
+
+<a href="#top" class="top">^ Back to top</a>
+<p>&nbsp;</p>
+<p class="note">Report generated by Topaz for Total Test. For product details go to www.compuware.com</p>
+	</body>
+</html>
