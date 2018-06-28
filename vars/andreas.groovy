@@ -7,6 +7,7 @@ def call(Map pipelineParams) {
             stage('Build') {
                 steps {
                     echo "Hello from Build $pipelineParams.key1"
+                    echo 'Hello from Build $pipelineParams.key1'
                 }
             }
             stage('Test') {
