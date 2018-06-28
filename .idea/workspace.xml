@@ -2,51 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db78cd79-6d61-47f4-a1f5-2d1b8e40c443" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TestBB" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/.settings/org.eclipse.core.resources.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_CWXTDATE.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_CWXTSUBC.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_EMPFILE_EMPLOYEE_WORK_AREA.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_RPTFILE_BLANK_LINE.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_RPTFILE_EMPLOYEE_DTL.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_RPTFILE_EMPLOYEE_HDR1.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_RPTFILE_EMPLOYEE_HDR2.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_RPTFILE_EMPLOYEE_HDR3.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Interfaces/CWXTCOB_RPTFILE_EMP_TOTAL_DTL.interface" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/JCL/JobCard.jcl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/JCL/Runner.jcl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/JCL/RunnerBmp.jcl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/JCL/RunnerBmpDB2.jcl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/JCL/RunnerDb2.jcl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Output/.results/CWXTCOB_Scenario.result" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Output/JUnit/CWXTCOB_Scenario.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Output/Last Execution/CWXTCOB_Scenario.archive" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Output/Reports/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Output/Sonar/CWXTCOB_Scenario.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Scenarios/CWXTCOB_Scenario.testscenario" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_CWXTDATE_END-OF-MONTH-SW.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_CWXTDATE_TODAYS-DATE.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_CWXTDATE_WA-EMP-HIRE-DATE.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_CWXTDATE_YRS-OF-SERVICE.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_CWXTSUBC_CALC-COMMISSION.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_CWXTSUBC_CALC-SALES.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_CWXTSUBC_EMP-TYPE.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_PARMINFO.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_RPTFILE_BLANK-LINE.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_RPTFILE_EMP-TOTAL-DTL.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_RPTFILE_EMPLOYEE-DTL.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR1.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR2.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Stubs/CWXTCOB_CWXTDATE_01.stub" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Stubs/CWXTCOB_CWXTSUBC_01.stub" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Stubs/CWXTCOB_EMPFILE_READ_01.stub" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utb_unit_test/Unit Test/Stubs/CWXTCOB_RPTFILE_WRITE_01.stub" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vars/andreas.groovy" afterPath="$PROJECT_DIR$/vars/andreas.groovy" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -56,7 +12,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="andreas.groovy" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vars/andreas.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -64,6 +31,13 @@
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/vars/andreas.groovy" />
+      </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -219,6 +193,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -232,7 +207,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2497332" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2497332" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -259,6 +234,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/andreas.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
           <folding />
         </state>
       </provider>
