@@ -31,8 +31,9 @@ def call()
                 steps 
                 {
                     echo 'Deploy some things'
+                    step([$class: 'CordellWalkerRecorder'])
                 }
             }
         }
-    }
+
 }
