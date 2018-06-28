@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?totaltestVersion 18.2.5.v20180129-1916_48?>
+<!--Topaz for Total Test 18.2.5.v20180129-1916_48 2018-mar-01 14:54:35-->
+<interface:interface xmlns:interface="http://www.compuware.com/model/xml/interface" xmlns:listructure="http://www.compuware.com/model/xml/listructure" xmlns:properties="http://www.compuware.com/model/xml/properties" alias="" id="Unit%20Test/Interfaces/CWXTCOB_RPTFILE_EMPLOYEE_HDR3.interface">
+  <interface:description></interface:description>
+  <interface:argument listructure="../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#Unit%20Test/Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure">
+    <interface:baseTypeExtension baseType="listructure:structType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER0">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER1">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER2">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER3">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER4">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER5">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER6">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER7">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER8">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER9">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER10">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER11">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER12">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER13">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER14">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER15">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER16">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR3.listructure#EMPLOYEE_HDR3.FILLER17">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+  </interface:argument>
+</interface:interface>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?totaltestVersion 18.2.5.v20180129-1916_48?>
+<!--Topaz for Total Test 18.2.5.v20180129-1916_48 2018-mar-01 14:53:55-->
+<listructure:listructure xmlns:listructure="http://www.compuware.com/model/xml/listructure" xmlns:properties="http://www.compuware.com/model/xml/properties" id="Unit%20Test/Structures/CWXTCOB_CWXTDATE_YRS-OF-SERVICE.listructure">
+  <listructure:struct id="YRS_OF_SERVICE" name="YRS_OF_SERVICE">
+    <properties:properties>
+      <properties:property name="storageLength" type="number">2</properties:property>
+      <properties:property name="displayLength" type="number">2</properties:property>
+      <properties:property name="platform" type="string">mainframe</properties:property>
+    </properties:properties>
+    <listructure:number id="YRS_OF_SERVICE.YRS_OF_SERVICE" initial="0" length="2" name="YRS_OF_SERVICE">
+      <properties:properties>
+        <properties:property name="picture" type="string">99</properties:property>
+        <properties:property name="value">0</properties:property>
+        <properties:property name="storageLength" type="number">2</properties:property>
+        <properties:property name="displayLength" type="number">2</properties:property>
+        <properties:property name="integerDigits" type="number">2</properties:property>
+        <properties:property name="platform" type="string">mainframe</properties:property>
+        <properties:property name="liType" type="string">zoned</properties:property>
+        <properties:property name="mask" type="string">99</properties:property>
+      </properties:properties>
+    </listructure:number>
+  </listructure:struct>
+</listructure:listructure>
