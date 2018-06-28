@@ -1,12 +1,12 @@
 
-def call() {
+def call(Map pipelineParams) {
 
     pipeline {
         agent any
         stages {
             stage('Build') {
                 steps {
-                    echo 'Hello from Build'
+                    echo "Hello from Build $pipelineParams.key1"
                 }
             }
             stage('Test') {
