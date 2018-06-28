@@ -10,7 +10,7 @@ def call(Map pipelineParms) {
             stages {
                 stage('Build') {
                 steps {
-                    echo "Hello $pipelineParms.PERSON-name $pipelineParms.PERSON-lastname from Build"
+                    echo "Hello $pipelineParms.name $pipelineParms.lastname from Build"
                 }
                 }
                 stage('Test') {
