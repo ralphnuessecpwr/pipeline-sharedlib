@@ -1,3 +1,4 @@
+def call() {
 pipeline {
   agent { label 'AgentOrange'}
   parameters {
@@ -30,4 +31,5 @@ pipeline {
       }
     }
   }
+}
 }
