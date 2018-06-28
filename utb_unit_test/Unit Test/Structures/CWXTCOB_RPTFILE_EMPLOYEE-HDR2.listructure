@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?totaltestVersion 18.2.5.v20180129-1916_48?>
+<!--Topaz for Total Test 18.2.5.v20180129-1916_48 2018-mar-01 14:54:33-->
+<listructure:listructure xmlns:listructure="http://www.compuware.com/model/xml/listructure" xmlns:properties="http://www.compuware.com/model/xml/properties" id="Unit%20Test/Structures/CWXTCOB_RPTFILE_EMPLOYEE-HDR2.listructure">
+  <listructure:struct id="EMPLOYEE_HDR2" name="EMPLOYEE_HDR2">
+    <properties:properties>
+      <properties:property name="storageLength" type="number">80</properties:property>
+      <properties:property name="displayLength" type="number">80</properties:property>
+      <properties:property name="platform" type="string">mainframe</properties:property>
+    </properties:properties>
+    <listructure:string id="EMPLOYEE_HDR2.FILLER0" initial="                               " length="31" name="FILLER0">
+      <properties:properties>
+        <properties:property name="filler" type="boolean">true</properties:property>
+        <properties:property name="picture" type="string">X(31)</properties:property>
+        <properties:property name="value">spaces</properties:property>
+        <properties:property name="storageLength" type="number">31</properties:property>
+        <properties:property name="displayLength" type="number">31</properties:property>
+        <properties:property name="platform" type="string">mainframe</properties:property>
+        <properties:property name="liType" type="string">char</properties:property>
+        <properties:property name="mask" type="string">X(31)</properties:property>
+      </properties:properties>
+    </listructure:string>
+    <listructure:string id="EMPLOYEE_HDR2.FILLER1" initial="&quot;HIRE&quot;" length="4" name="FILLER1">
+      <properties:properties>
+        <properties:property name="filler" type="boolean">true</properties:property>
+        <properties:property name="picture" type="string">X(4)</properties:property>
+        <properties:property name="value">&quot;HIRE&quot;</properties:property>
+        <properties:property name="storageLength" type="number">4</properties:property>
+        <properties:property name="displayLength" type="number">4</properties:property>
+        <properties:property name="platform" type="string">mainframe</properties:property>
+        <properties:property name="liType" type="string">char</properties:property>
+        <properties:property name="mask" type="string">X(4)</properties:property>
+      </properties:properties>
+    </listructure:string>
+    <listructure:string id="EMPLOYEE_HDR2.FILLER2" initial="  " length="2" name="FILLER2">
+      <properties:properties>
+        <properties:property name="filler" type="boolean">true</properties:property>
+        <properties:property name="picture" type="string">X(2)</properties:property>
+        <properties:property name="value">spaces</properties:property>
+        <properties:property name="storageLength" type="number">2</properties:property>
+        <properties:property name="displayLength" type="number">2</properties:property>
+        <properties:property name="platform" type="string">mainframe</properties:property>
+        <properties:property name="liType" type="string">char</properties:property>
+        <properties:property name="mask" type="string">X(2)</properties:property>
+      </properties:properties>
+    </listructure:string>
+    <listructure:string id="EMPLOYEE_HDR2.FILLER3" initial="&quot;YRS OF&quot;" length="6" name="FILLER3">
+      <properties:properties>
+        <properties:property name="filler" type="boolean">true</properties:property>
+        <properties:property name="picture" type="string">X(6)</properties:property>
+        <properties:property name="value">&quot;YRS OF&quot;</properties:property>
+        <properties:property name="storageLength" type="number">6</properties:property>
+        <properties:property name="displayLength" type="number">6</properties:property>
+        <properties:property name="platform" type="string">mainframe</properties:property>
+        <properties:property name="liType" type="string">char</properties:property>
+        <properties:property name="mask" type="string">X(6)</properties:property>
+      </properties:properties>
+    </listructure:string>
+    <listructure:string id="EMPLOYEE_HDR2.FILLER4" initial="                                     " length="37" name="FILLER4">
+      <properties:properties>
+        <properties:property name="filler" type="boolean">true</properties:property>
+        <properties:property name="picture" type="string">X(37)</properties:property>
+        <properties:property name="value">spaces</properties:property>
+        <properties:property name="storageLength" type="number">37</properties:property>
+        <properties:property name="displayLength" type="number">37</properties:property>
+        <properties:property name="platform" type="string">mainframe</properties:property>
+        <properties:property name="liType" type="string">char</properties:property>
+        <properties:property name="mask" type="string">X(37)</properties:property>
+      </properties:properties>
+    </listructure:string>
+  </listructure:struct>
+</listructure:listructure>

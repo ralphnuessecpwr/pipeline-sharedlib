@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?totaltestVersion 18.2.5.v20180129-1916_48?>
+<!--Topaz for Total Test 18.2.5.v20180129-1916_48 2018-mar-01 14:53:57-->
+<interface:interface xmlns:interface="http://www.compuware.com/model/xml/interface" xmlns:listructure="http://www.compuware.com/model/xml/listructure" xmlns:properties="http://www.compuware.com/model/xml/properties" alias="" id="Unit%20Test/Interfaces/CWXTCOB_EMPFILE_EMPLOYEE_WORK_AREA.interface">
+  <interface:description></interface:description>
+  <interface:argument listructure="../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#Unit%20Test/Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure">
+    <interface:baseTypeExtension baseType="listructure:structType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_NUM">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_TYPE">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_REGION">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_NAME">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:structType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_ADDRESS">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_ADDRESS.WA_EMP_STREET">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_ADDRESS.WA_EMP_CITY">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_ADDRESS.WA_EMP_STATE">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_ADDRESS.WA_EMP_ZIP">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:structType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_HOURLY_EMPLOYEE_DATA">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_HOURLY_EMPLOYEE_DATA.WA_EMP_HOURS">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_HOURLY_EMPLOYEE_DATA.WA_EMP_RATE">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_HOURLY_EMPLOYEE_DATA.FILLER0">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:structType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_SALES_EMPLOYEE_DATA">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_SALES_EMPLOYEE_DATA.WA_SALES_SALARY">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_SALES_EMPLOYEE_DATA.WA_SALES_AMOUNT">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_SALES_EMPLOYEE_DATA.FILLER1">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:structType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_MGMT_EMPLOYEE_DATA">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_MGMT_EMPLOYEE_DATA.WA_MGMT_SALARY">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_MGMT_EMPLOYEE_DATA.FILLER2">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:structType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_HIRE_DATE">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_HIRE_DATE.WA_EMP_HIRE_YY">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_HIRE_DATE.WA_EMP_HIRE_MM">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:numberType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.WA_EMP_HIRE_DATE.WA_EMP_HIRE_DD">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+    <interface:baseTypeExtension baseType="listructure:stringType ../Structures/CWXTCOB_EMPFILE_EMPLOYEE-WORK-AREA.listructure#EMPLOYEE_WORK_AREA.FILLER3">
+      <properties:properties>
+        <properties:property name="usage" type="string">inout</properties:property>
+      </properties:properties>
+    </interface:baseTypeExtension>
+  </interface:argument>
+</interface:interface>

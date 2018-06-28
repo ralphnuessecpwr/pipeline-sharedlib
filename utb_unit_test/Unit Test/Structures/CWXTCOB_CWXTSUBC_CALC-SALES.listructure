@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?totaltestVersion 18.2.5.v20180129-1916_48?>
+<!--Topaz for Total Test 18.2.5.v20180129-1916_48 2018-mar-01 14:54:02-->
+<listructure:listructure xmlns:listructure="http://www.compuware.com/model/xml/listructure" xmlns:properties="http://www.compuware.com/model/xml/properties" id="Unit%20Test/Structures/CWXTCOB_CWXTSUBC_CALC-SALES.listructure">
+  <listructure:struct id="CALC_SALES" name="CALC_SALES">
+    <properties:properties>
+      <properties:property name="storageLength" type="number">8</properties:property>
+      <properties:property name="displayLength" type="number">8</properties:property>
+      <properties:property name="platform" type="string">mainframe</properties:property>
+    </properties:properties>
+    <listructure:number id="CALC_SALES.CALC_SALES" initial="0" length="8" name="CALC_SALES">
+      <properties:properties>
+        <properties:property name="picture" type="string">9(6)V99</properties:property>
+        <properties:property name="value">0</properties:property>
+        <properties:property name="scale" type="number">2</properties:property>
+        <properties:property name="storageLength" type="number">8</properties:property>
+        <properties:property name="displayLength" type="number">8</properties:property>
+        <properties:property name="integerDigits" type="number">6</properties:property>
+        <properties:property name="platform" type="string">mainframe</properties:property>
+        <properties:property name="liType" type="string">zoned</properties:property>
+        <properties:property name="mask" type="string">9(6)V99</properties:property>
+      </properties:properties>
+    </listructure:number>
+  </listructure:struct>
+</listructure:listructure>
