@@ -5,7 +5,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo "Hello from $pipelineParams.nom"
+        echo "Hello from $pipelineParams.Nom"
         sleep 10
         input message: 'On y va ?', ok: 'Oui'
      
