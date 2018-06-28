@@ -1,15 +1,16 @@
 //Marcin pipeline for sharedlib
-def call() {
+def call(Map pipelineParms) {
 
     pipeline {
     agent any
-    parameters {
+/*    parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins')
             }
+ */           
             stages {
                 stage('Build') {
                 steps {
-                    echo "Hello ${params.PERSON} from Build"
+                    echo "Hello $pipelineParms.key1 from Build"
                 }
                 }
                 stage('Test') {
