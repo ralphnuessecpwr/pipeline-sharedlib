@@ -1,4 +1,4 @@
-def call() {
+def call() (map pipelineParams) {
 pipeline {
   agent { label 'AgentOrange'}
   parameters {
@@ -33,3 +33,4 @@ pipeline {
   }
 }
 }
+            
