@@ -9,8 +9,7 @@ import com.compuware.devops.util.*
 
 def call(Map pipelineParams)
 {
-    ansiColor('xterm')
-    {
+    println "Params " + pipelineParams.firstname
     Helper helper = new Helper(this)
     helper.helloWorld(pipelineParams.firstname)
 /*
@@ -24,5 +23,4 @@ def call(Map pipelineParams)
     String XLR_Template         = "A Release from Jenkins"
     String XLR_User	            = "admin"	
 */
-    }
 }
