@@ -1,3 +1,4 @@
 def call(String name) {
-  echo "$name"
+  Helper helper=new Helper(this)
+  helper.helloWorld(name)
  }
