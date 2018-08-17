@@ -14,7 +14,7 @@ def call(Map pipelineParams)
         println "Params " + pipelineParams.firstname
         Helper helper = new Helper(this)
         helper.helloWorld(pipelineParams.firstname)
-    /*
+    
         String Git_Credentials      = "github"
         String Git_URL              = "https://github.com/${Git_Project}"
         String Git_TTT_Repo         = "${ISPW_Stream}_${ISPW_Application}_Unit_Tests.git"
@@ -24,6 +24,7 @@ def call(Map pipelineParams)
         String MF_Source            = "MF_Source"
         String XLR_Template         = "A Release from Jenkins"
         String XLR_User	            = "admin"	
-    */
+    
+       println "XLR_User " + XLR_User 
     }
 }
