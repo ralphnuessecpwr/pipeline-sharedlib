@@ -15,12 +15,13 @@ String SQ_Scanner_Name      = "scanner"
 String SQ_Server_Name       = "localhost"  
 String MF_Source            = "MF_Source"
 String XLR_Template         = "A Release from Jenkins"
-String XLR_User	            = "admin"	
+//String XLR_User	            = "admin"	
 
 def call(Map pipelineParams)
 {
     node
     {
+        def XLR_User	            = "admin"	
         println "Params " + pipelineParams.firstname
         Helper helper = new Helper(this)
         helper.helloWorld(pipelineParams.firstname)
