@@ -10,7 +10,8 @@ class Helper implements Serializable {
     }
 
     def helloWorld(String name){
-        steps.sh "echo Hello $name from " + this.getClass().getName()
+        
+        echo "Hello $name from " + this.getClass().getName()
 
     }
 }
