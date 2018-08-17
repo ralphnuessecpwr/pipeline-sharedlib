@@ -13,12 +13,12 @@ def call(Map pipelineParams)
     {
         Helper helper = new Helper(this)
         
-        helper.helloWorld("ISPW_Stream: " + pipelineParams.ISPW_Stream)
-        helper.helloWorld("ISPW_Container: " + pipelineParams.ISPW_Container)
-        helper.helloWorld("ISPW_Level: " + pipelineParams.ISPW_Level)
-        helper.helloWorld("SetId: " + pipelineParams.SetId)
-        helper.helloWorld("ISPW_Release: " + pipelineParams.ISPW_Level)
-        helper.helloWorld("Owner: " + pipelineParams.Owner)
+        helper.echoValue("ISPW_Stream: " + pipelineParams.ISPW_Stream)
+        helper.echoValue("ISPW_Container: " + pipelineParams.ISPW_Container)
+        helper.echoValue("ISPW_Level: " + pipelineParams.ISPW_Level)
+        helper.echoValue("SetId: " + pipelineParams.SetId)
+        helper.echoValue("ISPW_Release: " + pipelineParams.ISPW_Level)
+        helper.echoValue("Owner: " + pipelineParams.Owner)
 
         def Git_Credentials      = "github"
         def Git_URL              = "https://github.com/${Git_Project}"

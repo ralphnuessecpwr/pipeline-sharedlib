@@ -4,14 +4,13 @@ class Helper implements Serializable {
     def steps
     // String credentialsId
 
-    Helper(steps) {
+    Helper(steps) 
+    {
         this.steps = steps
-
     }
 
-    def helloWorld(String name){
-
-        steps.bat "echo Hello $name from " + this.getClass().getName()
-
+    def echoValue(String value)
+    {
+        steps.bat "echo $value"
     }
 }
