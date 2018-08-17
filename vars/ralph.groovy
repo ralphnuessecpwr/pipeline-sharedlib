@@ -9,7 +9,7 @@ import com.compuware.devops.util.*
 
 def call(Map pipelineParams)
 {
-    Helper helper = new Helper
+    Helper helper = new Helper(this)
     helper.helloWorld(pipelineParams.firstname)
 /*
     String Git_Credentials      = "github"
