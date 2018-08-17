@@ -1,48 +1,25 @@
-def call(Map pipelineParams) 
-{
-    pipeline 
-    {
-        agent any
-        stages 
-        {
-            stage('Build') 
-            {
-                steps 
-                {
-                    echo "Hello, ${pipelineParams.firstname}, from Build"
-                }
-            }
-            stage('Test') 
-            {
-                steps 
-                {
-                    echo "Testing Testing 123, Mr. ${pipelineParams.lastname}"
-                }
-            }
-            stage('Integration Test') 
-            {
-                steps 
-                {
-                    echo 'Integration Testing Testing 666'
-                }
-            }
-            stage('Deploy') 
-            {
-                steps 
-                {
-                    echo 'Deploy some things'
-                    step([$class: 'CordellWalkerRecorder'])
-                    
-                    emailext subject: '$DEFAULT_SUBJECT',
-                                body: '$DEFAULT_CONTENT',
-                                //body: '$DEFAULT_CONTENT',
-                                replyTo: '$DEFAULT_REPLYTO',
-                                //attachmentsPattern: 'reports/*.zip',
-                                to: "ralph.nuesse@compuware.com"
-                    
+#!/usr/bin/env groovy
+import hudson.model.*
+import hudson.EnvVars
+import groovy.json.JsonSlurper
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
+import java.net.URL
+import com.compuware.devops.util.*
 
-                }
-            }
-        }
-    }
+def call(Map pipelineParams)
+{
+    Helper helper = new Helper
+    helper.helloWorld(pipelineParams.firstname)
+/*
+    String Git_Credentials      = "github"
+    String Git_URL              = "https://github.com/${Git_Project}"
+    String Git_TTT_Repo         = "${ISPW_Stream}_${ISPW_Application}_Unit_Tests.git"
+    String Git_Branch           = "master"
+    String SQ_Scanner_Name      = "scanner" 
+    String SQ_Server_Name       = "localhost"  
+    String MF_Source            = "MF_Source"
+    String XLR_Template         = "A Release from Jenkins"
+    String XLR_User	            = "admin"	
+*/
 }
