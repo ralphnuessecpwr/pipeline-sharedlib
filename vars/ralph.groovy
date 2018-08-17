@@ -11,6 +11,14 @@ def call(Map pipelineParams)
 {
     node
     {
+        Helper helper = new Helper(this)
+        
+        helper.helloWorld("ISPW_Stream: " + pipelineParams.ISPW_Stream)
+        helper.helloWorld("ISPW_Container: " + pipelineParams.ISPW_Container)
+        helper.helloWorld("ISPW_Level: " + pipelineParams.ISPW_Level)
+        helper.helloWorld("SetId: " + pipelineParams.SetId)
+        helper.helloWorld("ISPW_Release: " + pipelineParams.ISPW_Level)
+        helper.helloWorld("Owner: " + pipelineParams.Owner)
 
         def Git_Credentials      = "github"
         def Git_URL              = "https://github.com/${Git_Project}"
@@ -21,14 +29,6 @@ def call(Map pipelineParams)
         def MF_Source            = "MF_Source"
         def XLR_Template         = "A Release from Jenkins"
         def XLR_User	         = "admin"	
-
-        Helper helper = new Helper(this)
-        helper.helloWorld("ISPW_Stream: " + pipelineParams.ISPW_Stream)
-        helper.helloWorld("ISPW_Container: " + pipelineParams.ISPW_Container)
-        helper.helloWorld("ISPW_Level: " + pipelineParams.ISPW_Level)
-        helper.helloWorld("SetId: " + pipelineParams.SetId)
-        helper.helloWorld("ISPW_Release: " + pipelineParams.ISPW_Level)
-        helper.helloWorld("Owner: " + pipelineParams.Owner)
 
     }
 }
