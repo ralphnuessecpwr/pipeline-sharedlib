@@ -9,8 +9,8 @@ Class to hold setup information required for the pipeline for any user
 
 public String ISPW_RuntimeConfig   = "ISPW"
 public String Git_Branch           = "master"
-public String SQ_Scanner_Name      = "scanner" 
-public String SQ_Server_Name       = "localhost"  
+public String SQ_Scanner_Name      = "Scanner"  // "scanner"
+public String SQ_Server_Name       = "CWCC"     // "localhost"  
 public String MF_Source            = "MF_Source"
 public String XLR_Template         = "A Release from Jenkins"
 public String XLR_User             = "admin"	
