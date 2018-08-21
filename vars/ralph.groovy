@@ -51,14 +51,29 @@ def call(Map pipelineParams)
     node
     {
 
+        def ISPW_Stream         = pipelineParams.ISPW_Stream
+        def ISPW_Application    = pipelineParams.ISPW_Application
+        def ISPW_Container      = pipelineParams.ISPW_Container
+        def ISPW_Level          = pipelineParams.ISPW_Level
+        def SetId               = pipelineParams.SetId
+        def ISPW_Release        = pipelineParams.ISPW_Release
+        def Owner               = pipelineParams.Owner
+        def Git_Project         = pipelineParams.Git_Project
+        def Git_Credentials     = pipelineParams.Git_Credentials
+        def CES_Token           = pipelineParams.CES_Token
+        def HCI_Conn_ID         = pipelineParams.HCI_Conn_ID
+        def HCI_Token           = pipelineParams.HCI_Token
+
+        def Git_URL             = "https://github.com/${Git_Project}"
+        def Git_TTT_Repo        = "${ISPW_Stream}_${ISPW_Application}_Unit_Tests.git"
+
         /* PropertiesInfo is a class storing constants used thruout the pipeline */
         PropertiesInfo pinfo = new PropertiesInfo()
 
-        def Git_URL             = "https://github.com/${pipelineParams.Git_Project}"
-        def Git_TTT_Repo        = "${pipelineParams.ISPW_Stream}_${pipelineParams.ISPW_Application}_Unit_Tests.git"
+        def Git_Branch          = pinfo.Git_Branch
 
         // Determine the current ISPW Path and Level that the code Promotion is from
-        def PathNum = getPathNum(pipelineParams.ISPW_Level)
+        def PathNum = getPathNum(ISPW_Level)
 
         // Use the Path Number to determine the right Runner JCL to use (different STEPLIB concatenations)
         def TTT_Jcl = "Runner_PATH" + PathNum + ".jcl"
@@ -70,9 +85,9 @@ def call(Map pipelineParams)
                 //Retrieve the code from ISPW that has been promoted 
                 steps.checkout([$class: 'IspwContainerConfiguration', 
                     componentType: '',                  // optional filter for component types in ISPW
-                    connectionId: "${pipelineParams.HCI_Conn_ID}",     
-                    credentialsId: "${pipelineParams.HCI_Token}",      
-                    containerName: "${pipelineParams.SetId}",   
+                    connectionId: "${HCI_Conn_ID}",     
+                    credentialsId: "${HCI_Token}",      
+                    containerName: "${SetId}",   
                     containerType: '2',                 // 0-Assignment 1-Release 2-Set
                     ispwDownloadAll: true,             // false will not download files that exist in the workspace and haven't previous changed
                     serverConfig: '',                   // ISPW runtime config.  if blank ISPW will use the default runtime config
