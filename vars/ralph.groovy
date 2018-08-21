@@ -36,6 +36,7 @@ def call(Map pipelineParams)
 
         echo "Git_URL: " + Git_URL
         echo "Git_TTT_Repo: " + Git_TTT_Repo
+        echo "Git_Branch: " + Git_Branch
         echo "pathNum: " + pathNum
 
     }
