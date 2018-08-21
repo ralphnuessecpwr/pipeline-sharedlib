@@ -51,6 +51,7 @@ def call(Map pipelineParams)
     node
     {
 
+        // Store parameter values in variables (easier to retrieve during code)
         def ISPW_Stream         = pipelineParams.ISPW_Stream
         def ISPW_Application    = pipelineParams.ISPW_Application
         def ISPW_Container      = pipelineParams.ISPW_Container
@@ -70,7 +71,9 @@ def call(Map pipelineParams)
         /* PropertiesInfo is a class storing constants used thruout the pipeline */
         PropertiesInfo pinfo = new PropertiesInfo()
 
+        // Store properties values in variables (easier to retrieve during code)
         def Git_Branch          = pinfo.Git_Branch
+        def MF_Source           = pinfo.MF_Source
 
         // Determine the current ISPW Path and Level that the code Promotion is from
         def PathNum = getPathNum(ISPW_Level)
