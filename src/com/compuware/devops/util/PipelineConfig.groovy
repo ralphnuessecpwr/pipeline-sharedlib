@@ -1,6 +1,6 @@
 package com.compuware.devops.util
 
-class PropertiesInfo implements Serializable 
+class PipelineConfig implements Serializable 
 {
 
 /* 

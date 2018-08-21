@@ -68,12 +68,14 @@ def call(Map pipelineParams)
         def Git_URL             = "https://github.com/${Git_Project}"
         def Git_TTT_Repo        = "${ISPW_Stream}_${ISPW_Application}_Unit_Tests.git"
 
-        /* PropertiesInfo is a class storing constants used thruout the pipeline */
-        PropertiesInfo pinfo = new PropertiesInfo()
+
+        // PipelineConfig is a class storing constants independant from user used throuout the pipeline
+        PipelineConfig pConfig = new PipelineConfig()
 
         // Store properties values in variables (easier to retrieve during code)
-        def Git_Branch          = pinfo.Git_Branch
-        def MF_Source           = pinfo.MF_Source
+        def Git_Branch          = pConfig.Git_Branch
+        def MF_Source           = pConfig.MF_Source
+
 
         // Determine the current ISPW Path and Level that the code Promotion is from
         def PathNum = getPathNum(ISPW_Level)
@@ -85,6 +87,7 @@ def call(Map pipelineParams)
 
         stage("Retrieve Code From ISPW")
         {
+            /*
                 //Retrieve the code from ISPW that has been promoted 
                 steps.checkout([$class: 'IspwContainerConfiguration', 
                     componentType: '',                  // optional filter for component types in ISPW
@@ -95,6 +98,21 @@ def call(Map pipelineParams)
                     ispwDownloadAll: true,             // false will not download files that exist in the workspace and haven't previous changed
                     serverConfig: '',                   // ISPW runtime config.  if blank ISPW will use the default runtime config
                     serverLevel: ''])                   // level to download the components from
+            */
+
+            steps.checkout(changelog: false, poll: false, 
+                scm: [$class: 'IspwConfiguration', 
+                    componentType: 'COB, COPY', 
+                    connectionId: "${HCI_Conn_ID}", 
+                    credentialsId: "${HCI_Token}", 
+                    folderName: '', 
+                    ispwDownloadAll: true, 
+                    levelOption: '1', 
+                    serverApplication: "${ISPW_Application}", 
+                    serverConfig: "${ISPW_RuntimeConfig}", 
+                    serverLevel: "${ISPW_Target_Level}", 
+                    serverStream: "${ISPW_Stream}"])
+
         }
 
         stage("Retrieve Tests")
