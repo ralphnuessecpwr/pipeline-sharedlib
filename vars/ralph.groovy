@@ -13,6 +13,8 @@ def call(Map pipelineParams)
     {
         PropertiesInfo propertiesInfo = new PropertiesInfo(pipelineParams)
         Helper helper = new Helper(this)
+
+        echo "Git_URL: " + propertiesInfo.Git_URL
 /*        
         helper.echoValue("ISPW_Stream: " + pipelineParams.ISPW_Stream)
         helper.echoValue("ISPW_Container: " + pipelineParams.ISPW_Container)
