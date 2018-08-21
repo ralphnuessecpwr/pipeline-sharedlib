@@ -27,6 +27,8 @@ def call(Map pipelineParams)
     node
     {
 
+        PropertiesInfo pinfo = new PropertiesInfo
+
         Git_URL             = "https://github.com/${pipelineParams.Git_Project}"
         Git_TTT_Repo        = "${pipelineParams.ISPW_Stream}_${pipelineParams.ISPW_Application}_Unit_Tests.git"
 
@@ -36,7 +38,7 @@ def call(Map pipelineParams)
 
         echo "Git_URL: " + Git_URL
         echo "Git_TTT_Repo: " + Git_TTT_Repo
-        echo "Git_Branch: " + Git_Branch
+        echo "Git_Branch: " + pinfo.Git_Branch
         echo "pathNum: " + pathNum
 
     }
