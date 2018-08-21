@@ -9,10 +9,9 @@ import com.compuware.devops.util.*
 
 def checkParams(Map params)
 {
-    try
-    {
-        echo "ISPW_Stream: " + params.ISPW_Stream        
-    }
+    echo "ISPW_Stream: " + params.ISPW_Stream        
+    echo "ISPW_Strem: " + params.ISPW_Strem        
+
     /*
     ISPW_Stream:'FTSDEMO',
     ISPW_Container:'RXN100007',
