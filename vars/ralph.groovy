@@ -76,6 +76,7 @@ def call(Map pipelineParams)
         def Git_Branch          = pConfig.Git_Branch
         def MF_Source           = pConfig.MF_Source
         def ISPW_RuntimeConfig  = pConfig.ISPW_RuntimeConfig
+        def CC_repository       = pConfig.CC_repository
 
         // Determine the current ISPW Path and Level that the code Promotion is from
         def PathNum = getPathNum(ISPW_Level)
