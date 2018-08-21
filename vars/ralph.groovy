@@ -211,5 +211,63 @@ def call(Map pipelineParams)
                 credentialsId: "${HCI_Token}"])
         }
 
+        /* 
+        This stage pushes the Source Code, Test Metrics and Coverage metrics into SonarQube and then checks the status of the SonarQube Quality Gate.  
+        If the SonarQube quality date fails, the Pipeline fails and stops
+        */ 
+        stage("Check SonarQube Quality Gate") 
+        {
+            // Requires SonarQube Scanner 2.8+
+            // Retrieve the location of the SonarQube Scanner.  
+            def scannerHome = tool 'scanner';   // 'scanner' is the name defined for the SonarQube scanner defined in Jenkins / Global Tool Configuration / SonarQube Scanner section
+            withSonarQubeEnv('localhost')       // 'localhost' is the name of the SonarQube server defined in Jenkins / Configure Systems / SonarQube server section
+            {
+                // Finds all of the Total Test results files that will be submitted to SonarQube
+                def TTTListOfResults = findFiles(glob: 'TTTSonar/*.xml')   // Total Test SonarQube result files are stored in TTTSonar directory
+
+                // Build the sonar testExecutionReportsPaths property
+                // Start will the property itself
+                def SQ_TestResult          = "-Dsonar.testExecutionReportPaths="    
+
+                // Loop through each result Total Test results file found
+                TTTListOfResults.each 
+                {
+                    def TTTResultName    = it.name   // Get the name of the Total Test results file   
+                    SQ_TestResult = SQ_TestResult + "TTTSonar/" + it.name +  ',' // Append the results file to the property
+                }
+
+                // Build the rest of the SonarQube Scanner Properties
+                
+                // Test and Coverage results
+                def SQ_Scanner_Properties   = " -Dsonar.tests=tests ${SQ_TestResult} -Dsonar.coverageReportPaths=Coverage/CodeCoverage.xml"
+                // SonarQube project to load results into
+                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.projectKey=${JOB_NAME} -Dsonar.projectName=${JOB_NAME} -Dsonar.projectVersion=1.0"
+                // Location of the Cobol Source Code to scan
+                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.sources=${ISPW_Application}\\MF_Source"
+                // Location of the Cobol copybooks to scan
+                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.cobol.copy.directories=${ISPW_Application}\\MF_Source"  
+                // File extensions for Cobol and Copybook files.  The Total Test files need that contain tests need to be defined as cobol for SonarQube to process the results
+                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.cobol.file.suffixes=cbl,testsuite,testscenario,stub -Dsonar.cobol.copy.suffixes=cpy -Dsonar.sourceEncoding=UTF-8"
+                
+                // Call the SonarQube Scanner with properties defined above
+                bat "${scannerHome}/bin/sonar-scanner" + SQ_Scanner_Properties
+            }
+/*
+            // Wait for the results of the SonarQube Quality Gate
+            timeout(time: 2, unit: 'MINUTES') 
+            {
+                
+                // Wait for webhook call back from SonarQube.  SonarQube webhook for callback to Jenkins must be configured on the SonarQube server.
+                def qg = waitForQualityGate()
+                
+                // Evaluate the status of the Quality Gate
+                if (qg.status != 'OK')
+                {
+                    echo "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    error "Exiting Pipeline" // Exit the pipeline with an error if the SonarQube Quality Gate is failing
+                }
+            }   
+*/
+        }
     }
 }
