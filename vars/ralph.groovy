@@ -58,7 +58,7 @@ def call(Map pipelineParams)
         def Git_TTT_Repo        = "${pipelineParams.ISPW_Stream}_${pipelineParams.ISPW_Application}_Unit_Tests.git"
 
         // Determine the current ISPW Path and Level that the code Promotion is from
-        def PathNum = getPathNum(ISPW_Level)
+        def PathNum = getPathNum(pipelineParams.ISPW_Level)
 
         // Use the Path Number to determine the right Runner JCL to use (different STEPLIB concatenations)
         def TTT_Jcl = "Runner_PATH" + PathNum + ".jcl"
@@ -70,9 +70,9 @@ def call(Map pipelineParams)
                 //Retrieve the code from ISPW that has been promoted 
                 steps.checkout([$class: 'IspwContainerConfiguration', 
                     componentType: '',                  // optional filter for component types in ISPW
-                    connectionId: "${HCI_Conn_ID}",     
-                    credentialsId: "${HCI_Token}",      
-                    containerName: "${SetId}",   
+                    connectionId: "${pipelineParams.HCI_Conn_ID}",     
+                    credentialsId: "${pipelineParams.HCI_Token}",      
+                    containerName: "${pipelineParams.SetId}",   
                     containerType: '2',                 // 0-Assignment 1-Release 2-Set
                     ispwDownloadAll: false,             // false will not download files that exist in the workspace and haven't previous changed
                     serverConfig: '',                   // ISPW runtime config.  if blank ISPW will use the default runtime config
