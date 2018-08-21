@@ -75,7 +75,7 @@ def call(Map pipelineParams)
         // Store properties values in variables (easier to retrieve during code)
         def Git_Branch          = pConfig.Git_Branch
         def MF_Source           = pConfig.MF_Source
-
+        def ISPW_RuntimeConfig  = pConfig.ISPW_RuntimeConfig
 
         // Determine the current ISPW Path and Level that the code Promotion is from
         def PathNum = getPathNum(ISPW_Level)
