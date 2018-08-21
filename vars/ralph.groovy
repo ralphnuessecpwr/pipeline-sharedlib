@@ -64,6 +64,7 @@ def call(Map pipelineParams)
         def CES_Token           = pipelineParams.CES_Token
         def HCI_Conn_ID         = pipelineParams.HCI_Conn_ID
         def HCI_Token           = pipelineParams.HCI_Token
+        def CC_repository       = pipelineParams.CC_repository
 
         def Git_URL             = "https://github.com/${Git_Project}"
         def Git_TTT_Repo        = "${ISPW_Stream}_${ISPW_Application}_Unit_Tests.git"
@@ -76,7 +77,6 @@ def call(Map pipelineParams)
         def Git_Branch          = pConfig.Git_Branch
         def MF_Source           = pConfig.MF_Source
         def ISPW_RuntimeConfig  = pConfig.ISPW_RuntimeConfig
-        def CC_repository       = pConfig.CC_repository
 
         // Determine the current ISPW Path and Level that the code Promotion is from
         def PathNum = getPathNum(ISPW_Level)
