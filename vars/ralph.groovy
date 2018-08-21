@@ -27,8 +27,8 @@ def call(Map pipelineParams)
     node
     {
 
-        Git_URL             = "https://github.com/${proprtiesInfo.Git_Project}"
-        Git_TTT_Repo        = "${propertiesInfo.ISPW_Stream}_${propertiesInfo.ISPW_Application}_Unit_Tests.git"
+        Git_URL             = "https://github.com/${pipelineParams.Git_Project}"
+        Git_TTT_Repo        = "${pipelineParams.ISPW_Stream}_${pipelineParams.ISPW_Application}_Unit_Tests.git"
 
         def pathNum         = getPathNum(pipelineParams.ISPW_Level)
 
