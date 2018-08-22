@@ -244,9 +244,12 @@ def call(Map pipelineParams)
                 
                 // Test and Coverage results
                 def SQ_Scanner_Properties   = " -Dsonar.tests=tests ${SQ_TestResult} -Dsonar.coverageReportPaths=Coverage/CodeCoverage.xml"
+                
                 // SonarQube project to load results into
-                //SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.projectKey=${JOB_NAME} -Dsonar.projectName=${JOB_NAME} -Dsonar.projectVersion=1.0"
-                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.projectKey=Ralph_Madrid -Dsonar.projectName=Ralph_Madrid -Dsonar.projectVersion=1.0"
+                def SQ_Project_Name = JOB_NAME.replace('/', '_')
+
+                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.projectKey=${SQ_Project_Name} -Dsonar.projectName=${SQ_Project_Name} -Dsonar.projectVersion=1.0"
+
                 // Location of the Cobol Source Code to scan
                 SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.sources=${ISPW_Application}\\MF_Source"
                 // Location of the Cobol copybooks to scan
