@@ -80,7 +80,8 @@ def call(Map pipelineParams)
         def XLR_User            = pConfig.XLR_User
         def XLR_Template        = pConfig.XLR_Template
         def SQ_Scanner_Name     = pConfig.SQ_Scanner_Name 
-
+        def SQ_Server_Name      = pConfig.SQ_Server_Name
+        
         // Determine the current ISPW Path and Level that the code Promotion is from
         def PathNum = getPathNum(ISPW_Level)
 
@@ -223,7 +224,7 @@ def call(Map pipelineParams)
             // Requires SonarQube Scanner 2.8+
             // Retrieve the location of the SonarQube Scanner.  
             def scannerHome = tool "${SQ_Scanner_Name}";   // 'scanner' is the name defined for the SonarQube scanner defined in Jenkins / Global Tool Configuration / SonarQube Scanner section
-            withSonarQubeEnv('localhost')       // 'localhost' is the name of the SonarQube server defined in Jenkins / Configure Systems / SonarQube server section
+            withSonarQubeEnv("${SQ_Server_Name}")       // 'localhost' is the name of the SonarQube server defined in Jenkins / Configure Systems / SonarQube server section
             {
                 // Finds all of the Total Test results files that will be submitted to SonarQube
                 def TTTListOfResults = findFiles(glob: 'TTTSonar/*.xml')   // Total Test SonarQube result files are stored in TTTSonar directory
