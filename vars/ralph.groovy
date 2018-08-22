@@ -81,7 +81,7 @@ def call(Map pipelineParams)
         def XLR_Template        = pConfig.XLR_Template
         def SQ_Scanner_Name     = pConfig.SQ_Scanner_Name 
         def SQ_Server_Name      = pConfig.SQ_Server_Name
-        
+
         // Determine the current ISPW Path and Level that the code Promotion is from
         def PathNum = getPathNum(ISPW_Level)
 
@@ -245,7 +245,8 @@ def call(Map pipelineParams)
                 // Test and Coverage results
                 def SQ_Scanner_Properties   = " -Dsonar.tests=tests ${SQ_TestResult} -Dsonar.coverageReportPaths=Coverage/CodeCoverage.xml"
                 // SonarQube project to load results into
-                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.projectKey=${JOB_NAME} -Dsonar.projectName=${JOB_NAME} -Dsonar.projectVersion=1.0"
+                //SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.projectKey=${JOB_NAME} -Dsonar.projectName=${JOB_NAME} -Dsonar.projectVersion=1.0"
+                SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.projectKey=Ralph_Madrid -Dsonar.projectName=Ralph_Madrid -Dsonar.projectVersion=1.0"
                 // Location of the Cobol Source Code to scan
                 SQ_Scanner_Properties = SQ_Scanner_Properties + " -Dsonar.sources=${ISPW_Application}\\MF_Source"
                 // Location of the Cobol copybooks to scan
