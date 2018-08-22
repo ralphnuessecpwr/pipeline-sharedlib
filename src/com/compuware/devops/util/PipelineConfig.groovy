@@ -4,7 +4,7 @@ class PipelineConfig implements Serializable
 {
 
 /* 
-Class to hold setup information required for the pipeline for any user
+Class to hold Jenkins server specific setup information
 */
 
 public String ISPW_RuntimeConfig   = "ISPW"
