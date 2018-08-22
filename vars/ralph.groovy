@@ -44,7 +44,7 @@ def gitcheckout(String URL, String Branch, String Credentials, String Folder)
 
 /**
 Call method to execute the pipeline from a shared library
-@param pipelineParams - Map of paramter/value pairs 
+@param pipelineParams - Map of paramter/value pairs
 */
 def call(Map pipelineParams)
 {
