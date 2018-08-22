@@ -1,6 +1,6 @@
 package com.compuware.devops.util
 
-class PipelineConfig //implements Serializable 
+class PipelineConfig
 {
 
 /* 
